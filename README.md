@@ -3,8 +3,8 @@
 This repository contains scattering-amplitude data for the three-dimensional
 uniform electron gas (UEG).
 
-The CSV files in `data/` provide the same angular grid and last-order VDMC
-amplitudes reorganized from `spec_2_para.jl`.
+The CSV files in `data/` provide Fermi-surface scattering amplitudes computed
+using fifth-order Variational Diagrammatic Monte Carlo (VDMC).
 
 ## Data Layout
 
@@ -16,26 +16,23 @@ theta_over_pi,phi_over_pi,data,error
 
 - `theta_over_pi`: scattering angle `theta / pi`
 - `phi_over_pi`: azimuthal angle `phi / pi`
-- `data`: last-order amplitude value
-- `error`: uncertainty estimated as
-
-```math
-\sigma = \sqrt{\sigma_{\mathrm{MC}}^2 + (A_{o=4} - A_{o=3})^2}.
-```
+- `data`: fifth-order VDMC amplitude value
+- `error`: estimated uncertainty of the amplitude
 
 For each density parameter `rs = 1, 2, 3, 4, 5`, the files are:
 
 ```text
-spec_2_para_Auu_rs*.csv
-spec_2_para_Aud_rs*.csv
+Auu_rs*.csv
+Aud_rs*.csv
 ```
 
 Here `Auu` and `Aud` correspond to the same-spin and opposite-spin scattering
-amplitudes used as `Wuu` and `Wud` in `spec_2_para.jl`.
+amplitudes.
 
 ## Lifetime Formula
 
-Following `spec_2_para.jl`, the spin-summed squared scattering amplitude is
+The spin-summed squared scattering amplitude entering the Fermi-liquid
+lifetime is
 
 ```math
 W(\theta,\phi)
@@ -53,8 +50,8 @@ I_\tau
 \frac{W(\theta,\phi)}{\cos(\theta/2)}\sin\theta .
 ```
 
-On the tabulated grid, `spec_2_para.jl` evaluates this integral with the
-trapezoidal-cell average over neighboring grid points.
+On the tabulated grid, this integral can be evaluated with the trapezoidal-cell
+average over neighboring grid points.
 
 The Fermi-liquid lifetime coefficient is then
 
@@ -65,5 +62,15 @@ The Fermi-liquid lifetime coefficient is then
 k_B^2\, m^\ast ,
 ```
 
-where `m*` is the dimensionless effective mass used in the Julia script, and
+where `m*` is the dimensionless effective mass and
 `p_F = k_F \hbar / a_0`.
+
+## Citation
+
+If you use these data, please cite:
+
+Zhiyi Li, Pengcheng Hou, Bao-Zong Wang, Youjin Deng, and Kun Chen,
+"Two-Electron Correlations in the Metallic Electron Gas",
+arXiv:2511.22927 (2025).
+
+https://arxiv.org/abs/2511.22927
